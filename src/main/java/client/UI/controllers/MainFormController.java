@@ -102,7 +102,7 @@ public class MainFormController {
 
     private static SimpleObjectProperty<AvailableLocales> currentLocale = new SimpleObjectProperty<>(AvailableLocales.ENGLISH);
 
-    private volatile static ObservableList<LabWork> modelsCollection = FXCollections.observableArrayList();
+    private static ObservableList<LabWork> modelsCollection = FXCollections.observableArrayList();
 
     private static MainFormController mainFormController;
 
@@ -114,7 +114,9 @@ public class MainFormController {
         tableViewHandler.initializeColumns();
         currentLocale.addListener(change -> updateLocale());
         updateLocale();
-        Console.selectCommand(new String[]{"show", ""});
+        System.out.println(1);
+        Console.startServerListener();
+        System.out.println(4);
     }
 
     private void updateLocale() {
@@ -316,11 +318,11 @@ public class MainFormController {
     }
     @FXML
     protected void onInfoMenuItemPressed(ActionEvent actionEvent) {
-        Console.selectCommand(new String[]{"ingo", ""});
+        Console.selectCommand(new String[]{"info", ""});
     }
 
 
-    public static MainFormController getMainFormController() {
+    public synchronized static MainFormController getMainFormController() {
         return mainFormController;
     }
 
@@ -336,7 +338,7 @@ public class MainFormController {
         return removeFiltersButton;
     }
 
-    public TableViewHandler getTableViewHandler() {
+    public synchronized TableViewHandler getTableViewHandler() {
         return tableViewHandler;
     }
 

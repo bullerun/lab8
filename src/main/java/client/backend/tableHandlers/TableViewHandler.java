@@ -44,7 +44,7 @@ public class TableViewHandler {
         listChanged(null);
     }
     public void initializeData(NavigableSet<LabWork> labs){
-        Platform.runLater(()->modelsCollection.clear());
+        Platform.runLater(()-> modelsCollection.clear());
         Platform.runLater(()-> modelsCollection.addAll(labs));
     }
     private void listChanged(ListChangeListener.Change change) {

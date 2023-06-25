@@ -43,18 +43,24 @@ public class Console {
         Console.address = address;
     }
 
+    public static void show() {
+        try {
+            sender.sendMessage(new String[]{"show", ""}, client);
+        } catch (IOException e) {
+            System.out.println("бля");
+        }
+    }
 
     public static void add(LabWork labWork) {
         try {
             sender.sendMessageWithLabWork("add", labWork, client);
-            ResponseWithTreeSet response = hookUpdateResponse();
-            if (response != null && response.getLabWork() != null) {
-                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
-                TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
-                tableViewHandler.initializeData(response.getLabWork());
-                Notifications.create().position(Pos.TOP_CENTER).text("Добавление прошло успешно").show();
-            }
-            Notifications.create().position(Pos.TOP_CENTER).text("ошибка добавление").show();
+//            ResponseWithTreeSet response = hookUpdateResponse();
+//            if (response != null && response.getLabWork() != null) {
+//                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
+//                TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
+//                tableViewHandler.initializeData(response.getLabWork());
+//                Notifications.create().position(Pos.TOP_CENTER).text("Добавление прошло успешно").show();
+//            }
         } catch (IOException ignored) {
             Notifications.create().position(Pos.TOP_CENTER).text("ошибка добавление").show();
         }
@@ -178,11 +184,18 @@ public class Console {
         }
         try {
             sender.sendAuth(command, client);
-            return hookResponseWithBooleanType();
+            return  hookResponseWithBooleanType();
         } catch (IOException e) {
             return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
 
         }
+    }
+
+    public static void startServerListener() {
+        new Thread(() -> {
+            ServerListener serverListener= new ServerListener(sender);
+            serverListener.checkUpdating();
+        }).start();
     }
 
     private static ResponseWithBooleanType hookResponseWithBooleanType() throws IOException {
