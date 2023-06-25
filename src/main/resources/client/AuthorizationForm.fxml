@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1a1f25;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.UI.controllers.AuthorizationFormController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="400.0" prefWidth="355.20001220703125" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="290.0000213623047" minHeight="10.0" prefHeight="188.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="225.5999786376953" minHeight="10.0" prefHeight="182.4" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <MenuBar style="-fx-background-color: none; -fx-text-fill: #FFFFFF;" GridPane.columnSpan="1">
+        <menus>
+          <Menu fx:id="settingsMenu" mnemonicParsing="false" style="-fx-text-fill: #FFFFFF;" text="Setings">
+            <items>
+              <MenuItem fx:id="languageMenuItem" mnemonicParsing="false" onAction="#onLanguageButtonDown" text="Language" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <GridPane prefHeight="210.0" prefWidth="401.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="103.99998779296875" prefWidth="108.6" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="284.60003662109375" prefWidth="291.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="50.0" prefHeight="60.0" valignment="BASELINE" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <PasswordField fx:id="passwordTextField" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="logInTextField" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="loginLabel" text="Login" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordLable" text="Password" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="authorizationLabel" text="Authorization" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="signInButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignInButton" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5; -fx-background-color: #e6b333;" text="Sing In" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="signUpButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignUpButton" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5;" text="Sing Up" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="textLabel" alignment="CENTER" style="-fx-label-padding: 3;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+         </children>
+      </GridPane>
+   </children>
+</GridPane>
