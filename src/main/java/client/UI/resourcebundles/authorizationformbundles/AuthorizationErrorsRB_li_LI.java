@@ -9,7 +9,9 @@ public class AuthorizationErrorsRB_li_LI extends ListResourceBundle {
                 {"nameLength", "Vartotojo vardas turi būti mažesnis nei 127 simboliai"},
                 {"passwordLength", "Slaptažodis turi būti lygus 8 simboliams"},
                 {"empty", "Laukai neturi būti tušti"},
-                {"error", "Nepavyko autorizuoti vartotojo"}
+                {"error", "Nepavyko autorizuoti vartotojo"},
+                {"nameIsTaking", "Šis prisijungimas jau egzistuoja"},
+                {"invalid", "Neteisingas vartotojo vardas arba slaptažodis"}
         };
         return contents;
     }

@@ -13,7 +13,9 @@ public enum AuthorizationError implements Serializable {
     PASSWORD_LENGTH("passwordLength"),
 
     EMPTY("empty"),
-    ERROR("error");
+    ERROR("error"),
+    NAME_IS_TAKING("nameIsTaking"),
+    INVALID_USERNAME_OR_PASSWORD("invalid");
 
 
 

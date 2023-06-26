@@ -27,10 +27,10 @@ public class SelectorResponse {
             try {
                 Long id = sqlUserManager.registration(client);
                 client.setId(id);
-                return new ResponseWithBooleanType(AuthorizationError.ERROR, true, client);
+                return new ResponseWithBooleanType(AuthorizationError.NAME_IS_TAKING, true, client);
             } catch (PSQLException e) {
                 logger.info(client.getUserName() + e);
-                return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
+                return new ResponseWithBooleanType(AuthorizationError.NAME_IS_TAKING, false, client);
             } catch (SQLException e) {
                 logger.info("sql недоступна " + e);
                 return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
@@ -41,17 +41,16 @@ public class SelectorResponse {
                 Long id = sqlUserManager.login(client);
                 if (id != null) {
                     client.setId(id);
-                    return new ResponseWithBooleanType(AuthorizationError.ERROR, true, client);
+                    return new ResponseWithBooleanType(AuthorizationError.INVALID_USERNAME_OR_PASSWORD, true, client);
                 }
             } catch (PSQLException e) {
                 logger.info(client.getUserName() + e);
                 return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
             } catch (SQLException e) {
-                logger.info("sql недоступна " + e);
                 return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
             }
         }
-        return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
+        return new ResponseWithBooleanType(AuthorizationError.INVALID_USERNAME_OR_PASSWORD, false, client);
     }
 
     public ResponseWithTreeSet selectCommand(String[] command, Authentication client) {
