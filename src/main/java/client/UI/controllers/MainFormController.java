@@ -6,7 +6,7 @@ import client.UI.resourcebundles.enums.AvailableLocales;
 import client.UI.resourcebundles.enums.LabWorkAddAndUpdatingFormElements;
 import client.UI.resourcebundles.enums.MainFormElements;
 import client.backend.Console;
-import client.backend.LabAsk;
+
 import client.backend.tableHandlers.TableViewHandler;
 import common.DataField;
 import common.data.LabWork;

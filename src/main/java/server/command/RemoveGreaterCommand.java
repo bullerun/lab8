@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeNotEmptyException;
 import server.manager.CollectionManager;
@@ -30,22 +30,22 @@ public class RemoveGreaterCommand extends AbstractCommand {
             sqlCollectionManager.removeGreater(Long.parseLong(argument.trim()), client);
             var count = collectionManager.removeGreater(Long.parseLong(argument.trim()), client);
             if (count > 0) {
-                return new ResponseWithTreeSet("при вызове команды remove_greater удалено " + count + " лабораторных работ", collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.REMOVE_GREATER, collectionManager.getLabWork());
             }
-            return new ResponseWithTreeSet("Удаление не было осуществлено, проверьте наличие лабораторных удовлетворяющих условию и права на эти лабораторные работы",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST,collectionManager.getLabWork());
 
 
         } catch (MustBeNotEmptyException e) {
-            return new ResponseWithTreeSet("Id не введен", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT, collectionManager.getLabWork());
 
         } catch (NullPointerException e) {
-            return new ResponseWithTreeSet("Лабораторной работы с таким Id отсутствует",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.NO_SUCH_LABORATORY,collectionManager.getLabWork());
 
         } catch (NumberFormatException e) {
-            return new ResponseWithTreeSet("Некорректный ввод",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT,collectionManager.getLabWork());
 
         } catch (Exception e) {
-            return new ResponseWithTreeSet("Ошибка при удалении",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR,collectionManager.getLabWork());
         }
     }
 }

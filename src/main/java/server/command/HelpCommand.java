@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 
@@ -28,9 +28,10 @@ public class HelpCommand extends AbstractCommand {
             for (Command i : commandsForHelpCommand) {
                 s.append("Команда ").append(i.getName()).append(" ").append(i.getDescription()).append("\n");
             }
-            return new ResponseWithTreeSet(s.toString(), null);
+//            исправить
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null);
         }
     }
 }

@@ -1,8 +1,7 @@
 package server.command;
 
 
-import common.Response;
-import common.ResponseWithLabWork;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.data.LabWork;
 import server.manager.CollectionManager;
@@ -25,9 +24,9 @@ public class AddCommandWithLabWork extends AbstractCommandWithLabWork {
             labWork.setId(sqlCollectionManager.addInDB(labWork, client));
             labWork.setOwnerID(client);
             collectionManager.addToCollection(labWork);
-            return new ResponseWithTreeSet("Лабораторная успешно добавлена", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_SUCCESSFULLY_ADDED, collectionManager.getLabWork());
         } catch (Exception e) {
-            return new ResponseWithTreeSet("К сожалению лабораторная работа не была добавлена", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_NOT_ADDED, null);
         }
     }
 }

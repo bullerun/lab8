@@ -1,6 +1,7 @@
 package server.command;
 
 
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 import server.manager.CollectionManager;
@@ -23,13 +24,13 @@ public class ShowCommand extends AbstractCommand{
         try {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
             if (collectionManager.getLabWork().size() == 0) {
-                return new ResponseWithTreeSet("Коллекция пуста", collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
             }
 
-            return new ResponseWithTreeSet("", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
             
         }catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
         }
     }
 }

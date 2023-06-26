@@ -1,8 +1,7 @@
 package server.command;
 
 
-import common.Response;
-import common.ResponseWithLabWork;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.data.LabWork;
 import server.manager.CollectionManager;
@@ -24,9 +23,9 @@ public class UpdateByIdCommandWithLabWork extends AbstractCommandWithLabWork {
         try {
             sqlCollectionManager.update(labWork, client);
             collectionManager.update(labWork, client);
-            return new ResponseWithTreeSet("лабораторная работа обновлена", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.GOOD_UPDATE, collectionManager.getLabWork());
         } catch (Exception e) {
-            return new ResponseWithTreeSet("не получилось обновить лабораторную работу", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.BAD_UPDATE, null);
         }
     }
 }

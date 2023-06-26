@@ -3,7 +3,6 @@ package client.UI.controllers;
 import client.Main;
 import client.UI.resourcebundles.enums.VisualisationFirmElements;
 import client.backend.Console;
-import client.backend.LabAsk;
 import client.backend.LabAskStatic;
 import client.backend.visualizationlogic.computers.CirclesComputer;
 import client.backend.visualizationlogic.computers.PolygonsFacade;

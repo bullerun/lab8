@@ -1,9 +1,7 @@
 package server.manager;
 
 
-import common.Response;
-import common.ResponseWithLabWork;
-import common.ResponseWithTreeSet;
+import common.*;
 import common.data.LabWork;
 import server.command.*;
 import server.utility.LabAsk;
@@ -78,14 +76,14 @@ public class CommandManager {
         return commandsWithLabWork.get(command).execute(labWork, client);
     }
 
-    public Response commandSelectionFromScript(String command, ArrayList<String> commands, Long client) {
+    public ResponseExecuteScript commandSelectionFromScript(String command, ArrayList<String> commands, Long client) {
         addCommandHistory(command);
         String stringWithCommands = String.join("\n", commands);
         setScanner(new Scanner(stringWithCommands));
-        return new Response(String.join("\n", localConsole(client)) + "\nКоманда execute_script выполнена");
+        return new ResponseExecuteScript(localConsole(client));
     }
-    public ArrayList<String> localConsole(Long client) {
-        ArrayList<String> response = new ArrayList<>();
+    public ArrayList<ResponseStatusEnum> localConsole(Long client) {
+        ArrayList<ResponseStatusEnum> response = new ArrayList<>();
         String[] command;
         while (localScanner.hasNext()) {
             command = (localScanner.nextLine().trim() + " ").split(" ", 2);

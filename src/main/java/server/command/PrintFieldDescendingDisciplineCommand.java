@@ -1,7 +1,7 @@
 package server.command;
 
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.data.LabWork;
 import common.exception.MustBeEmptyException;
@@ -29,21 +29,21 @@ public class PrintFieldDescendingDisciplineCommand extends AbstractCommand {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
             NavigableSet<LabWork> labWork = collectionManager.getLabWork().descendingSet();
             if (labWork.isEmpty()) throw new MustBeNotEmptyException();
-            for (LabWork i : labWork) {
-                if (i.getDiscipline() == null) {
-                    return new ResponseWithTreeSet("У " + i.getId() + " " + i.getName() + " не указана дисциплина", collectionManager.getLabWork());
-                } else {
-                    return new ResponseWithTreeSet("У " + i.getId() + " " + i.getName() + " дисциплина " + i.getDiscipline(),collectionManager.getLabWork());
-                }
-            }
-            
+//            for (LabWork i : labWork) {
+//                if (i.getDiscipline() == null) {
+//                    return new ResponseWithTreeSet("У " + i.getId() + " " + i.getName() + " не указана дисциплина", collectionManager.getLabWork());
+//                } else {
+//                    return new ResponseWithTreeSet("У " + i.getId() + " " + i.getName() + " дисциплина " + i.getDiscipline(),collectionManager.getLabWork());
+//                }
+//            }
+//            исправить
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
 
         } catch (MustBeNotEmptyException e) {
-            return new ResponseWithTreeSet("Коллекция пуста",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY,collectionManager.getLabWork());
             
         }
-        return null;
+        return new ResponseWithTreeSet(ResponseStatusEnum.ERROR,collectionManager.getLabWork());
     }
 }

@@ -1,7 +1,7 @@
 package server.command;
 
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 import common.exception.MustBeNotEmptyException;
@@ -30,13 +30,13 @@ public class ClearCommand extends AbstractCommand{
             sqlCollectionManager.clear(client);
             collectionManager.clearCollection(client);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT,collectionManager.getLabWork());
 
         }catch (MustBeNotEmptyException e){
-            return new ResponseWithTreeSet("Коллекция и так пуста",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY,collectionManager.getLabWork());
         }catch (Exception e){
-            return new ResponseWithTreeSet("Произошла при попытке очистить коллекцию",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR_WHEN_TRYING_TO_CLEAR_THE_COLLECTION,collectionManager.getLabWork());
         }
-        return new ResponseWithTreeSet("Все ваши лабораторные работы удалены",collectionManager.getLabWork());
+        return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_CLEANUP_WAS_SUCCESSFUL,collectionManager.getLabWork());
     }
 }

@@ -3,11 +3,11 @@ package common;
 import java.io.Serializable;
 
 public class Response implements Serializable {
-    public String response;
-    public Response(String response){
+    public ResponseStatusEnum response;
+    public Response(ResponseStatusEnum response){
         this.response = response;
     }
-    public String getResponse(){
+    public ResponseStatusEnum getResponse(){
         return response;
     }
 }

@@ -57,7 +57,7 @@ public class SelectorResponse {
         try {
             return commandManager.commandSelection(command, sqlUserManager.login(client));
         } catch (SQLException e) {
-            return new ResponseWithTreeSet("не удалось выполнить команду " + command[0] + " нехватка прав или лабораторная работа не обнаружена", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
         }
     }
 
@@ -65,15 +65,17 @@ public class SelectorResponse {
         try {
             return commandManager.commandSelection(command, labWork, sqlUserManager.login(client));
         } catch (SQLException e) {
-            return new ResponseWithTreeSet("не удалось выполнить команду " + command + " нехватка прав или лабораторная работа не обнаружена", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
         }
     }
 
-    public Response selectWithCommands(String command, ArrayList<String> commands, Authentication client) {
+    public ResponseExecuteScript selectWithCommands(String command, ArrayList<String> commands, Authentication client) {
         try {
             return commandManager.commandSelectionFromScript(command, commands, sqlUserManager.login(client));
         } catch (SQLException e) {
-            return new Response("не удалось выполнить команду " + command + " нехватка прав или лабораторная работа не обнаружена");
+            ArrayList<ResponseStatusEnum> response = new ArrayList<ResponseStatusEnum>();
+            response.add(ResponseStatusEnum.ERROR);
+            return new ResponseExecuteScript(response);
         }
     }
 

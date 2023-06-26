@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.data.LabWork;
 import common.exception.MustBeEmptyException;
@@ -31,13 +31,14 @@ public class AverageOfMinimalPointCommand extends AbstractCommand {
                 SumOfMinimalPoints += i.getMinimalPoint();
                 count += 1;
             }
-            return new ResponseWithTreeSet("среднее значение поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints / count, collectionManager.getLabWork());
-
+//            return new ResponseWithTreeSet("среднее значение поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints / count, collectionManager.getLabWork());
+            // исправить
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
 
-        }catch (ArithmeticException e){
-            return new ResponseWithTreeSet("Нет лабораторных работ",collectionManager.getLabWork());
+        } catch (ArithmeticException e) {
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
 
         }
     }

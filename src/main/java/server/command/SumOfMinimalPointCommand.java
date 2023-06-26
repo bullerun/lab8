@@ -1,7 +1,7 @@
 package server.command;
 
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.data.LabWork;
 import common.exception.MustBeEmptyException;
@@ -29,10 +29,11 @@ public class SumOfMinimalPointCommand extends AbstractCommand {
             for (LabWork i : collectionManager.getLabWork()) {
                 SumOfMinimalPoints += i.getMinimalPoint();
             }
-            return new ResponseWithTreeSet("сумму значений поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints,collectionManager.getLabWork());
-            
+//            return new ResponseWithTreeSet("сумму значений поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints,collectionManager.getLabWork());
+//            исправить
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT,collectionManager.getLabWork());
             
         }
     }

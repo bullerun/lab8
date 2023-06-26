@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 import server.manager.CollectionManager;
@@ -23,11 +23,12 @@ public class InfoCommand extends AbstractCommand {
     public ResponseWithTreeSet execute(String argument, Long client) {
         try {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
-            return new ResponseWithTreeSet("Тип " + collectionManager.getLabWork().getClass() + "\n"
-                    + "Количество элементов: " + collectionManager.getLabWork().size() + "\n"
-                    + "Дата инициализации: " + collectionManager.getCreatingCollection(), collectionManager.getLabWork());
+//            return new ResponseWithTreeSet("Тип " + collectionManager.getLabWork().getClass() + "\n"
+//                    + "Количество элементов: " + collectionManager.getLabWork().size() + "\n"
+//                    + "Дата инициализации: " + collectionManager.getCreatingCollection(), collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента", collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
 
         }
     }

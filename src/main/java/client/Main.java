@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import client.backend.Console;
-import client.backend.LabAsk;
 import client.backend.ScriptReader;
 import client.backend.ValidationChecker;
 
@@ -43,9 +42,8 @@ public class Main extends Application {
             else host = args[0];
             InetSocketAddress addr = new InetSocketAddress(InetAddress.getLocalHost(), port);
             Scanner scanner = new Scanner(System.in);
-            LabAsk labAsk = new LabAsk(scanner);
             ScriptReader scriptReader = new ScriptReader();
-            Console console = new Console(scanner, labAsk, scriptReader);
+            Console console = new Console(scanner, scriptReader);
             Console.setAddress(addr);
             ValidationChecker validationChecker = new ValidationChecker();
             Console.start();

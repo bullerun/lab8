@@ -174,27 +174,6 @@ public class FilterCreatorFormController {
         return false;
     }
 
-    @FXML
-    protected void onButtonMouseEntered(MouseEvent event) {
-        Button button = (Button) event.getTarget();
-        button.setStyle("""
-                -fx-background-color: null;
-                -fx-border-width: 2;
-                -fx-border-radius: 50;
-                -fx-border-color: brown
-                """);
-    }
-
-    @FXML
-    protected void onButtonMouseExited(MouseEvent event) {
-        Button button = (Button) event.getTarget();
-        button.setStyle("""
-                -fx-background-color: null;
-                -fx-border-width: 1;
-                -fx-border-radius: 50;
-                -fx-border-color: brown
-                """);
-    }
 
     public void setCurrentStage(Stage stage) {
         this.currentStage = stage;

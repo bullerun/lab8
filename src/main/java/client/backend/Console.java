@@ -9,7 +9,6 @@ import common.data.LabWork;
 import common.exception.MustBeNotEmptyException;
 import common.exception.RangeException;
 import org.controlsfx.control.Notifications;
-//import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -35,7 +34,7 @@ public class Console {
     private static InetSocketAddress address;
     private static ScriptReader scriptReader;
 
-    public Console(Scanner scanner, LabAsk labAsk, ScriptReader scriptReader) {
+    public Console(Scanner scanner, ScriptReader scriptReader) {
         this.scanner = scanner;
         this.sender = new Sender();
         this.scriptReader = scriptReader;
@@ -48,8 +47,7 @@ public class Console {
     public static void show() {
         try {
             sender.sendMessage(new String[]{"show", ""}, client);
-        } catch (IOException e) {
-            System.out.println("бля");
+        } catch (IOException ignored) {
         }
     }
 
@@ -60,10 +58,10 @@ public class Console {
             if (response != null && response.getLabWork() != null) {
                 TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
                 tableViewHandler.initializeData(response.getLabWork());
-                Notifications.create().position(Pos.TOP_CENTER).text("Добавление прошло успешно").show();
+                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse().toString()).show();
             }
         } catch (IOException ignored) {
-            Notifications.create().position(Pos.TOP_CENTER).text("ошибка добавление").show();
+            Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.LAB_NOT_ADDED.toString()).show();
         }
     }
 
@@ -73,15 +71,15 @@ public class Console {
 
             ResponseWithTreeSet response = hookUpdateResponse();
             if (response != null && response.getLabWork() != null) {
-                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
+                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse().toString()).show();
                 TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
                 tableViewHandler.initializeData(response.getLabWork());
                 VisualizerFormController.step = 0;
             } else {
-                Notifications.create().position(Pos.TOP_CENTER).text("ошибка обновления").show();
+                Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.BAD_UPDATE.toString()).show();
             }
         } catch (IOException e) {
-            Notifications.create().position(Pos.TOP_CENTER).text("ошибка обновления").show();
+            Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.BAD_UPDATE.toString()).show();
         }
     }
 
@@ -91,9 +89,12 @@ public class Console {
             try {
                 sender.sendMessageWithCommands(scriptReader.getCommands(), client);
                 scriptReader.clearCommands();
-                Notifications.create().position(Pos.TOP_CENTER).text(hookResponse().getResponse()).show();
+                ResponseExecuteScript response = (ResponseExecuteScript) waitForResponse();
+                for (ResponseStatusEnum i : response.getResponse()) {
+                    Notifications.create().position(Pos.TOP_CENTER).text(i.toString()).show();
+                }
             } catch (IOException e) {
-                Notifications.create().position(Pos.TOP_CENTER).text("ошибка чтения").show();
+                Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.READING_ERROR.toString()).show();
             }
         }
     }
@@ -114,7 +115,7 @@ public class Console {
                 sender.sendMessage(command, client);
                 ResponseWithTreeSet response = hookUpdateResponse();
                 if (response != null && response.getLabWork() != null) {
-                    Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
+                    Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse().toString()).show();
                     TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
                     tableViewHandler.initializeData(response.getLabWork());
                 }

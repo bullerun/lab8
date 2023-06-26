@@ -1,7 +1,6 @@
 package client.UI.controllers;
 
 import client.UI.resourcebundles.enums.LabWorkAddAndUpdatingFormElements;
-import client.backend.LabAsk;
 import client.backend.LabAskStatic;
 import common.DataField;
 import common.data.Coordinates;

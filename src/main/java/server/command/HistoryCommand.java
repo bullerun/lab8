@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 
@@ -26,9 +26,10 @@ public class HistoryCommand extends AbstractCommand {
             for (int i = lastCommands.size() -1; i >= 0; i--) {
                 s.append(lastCommands.get(i)).append("\n");
             }
-            return new ResponseWithTreeSet(s.toString(), null);
+            //исправить
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
         }catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet("Команда вводится без аргумента", null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null);
 
         }
     }

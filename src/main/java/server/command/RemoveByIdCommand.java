@@ -1,6 +1,6 @@
 package server.command;
 
-import common.Response;
+import common.ResponseStatusEnum;
 import common.ResponseWithTreeSet;
 import common.exception.MustBeNotEmptyException;
 import server.manager.CollectionManager;
@@ -30,18 +30,18 @@ public class RemoveByIdCommand extends AbstractCommand {
             if (argument.isEmpty()) throw new MustBeNotEmptyException();
             sqlCollectionManager.removeByID(Long.parseLong(argument.trim()), client);
             if (collectionManager.removeByID(Long.parseLong(argument.trim()), client)) {
-                return new ResponseWithTreeSet("Лабораторная работа c таким id удалена",collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.LABORATORY_WORK_WITH_THIS_ID_HAS_BEEN_DELETED,collectionManager.getLabWork());
             }
-            return new ResponseWithTreeSet("Удаление не было осуществлено, проверьте наличие данной лабораторной и права на эту лабораторную работу",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST,collectionManager.getLabWork());
         } catch (MustBeNotEmptyException e) {
-            return new ResponseWithTreeSet("Id не введен",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT,collectionManager.getLabWork());
 
         } catch (NumberFormatException e) {
-            return new ResponseWithTreeSet("некорректно введено число, число должно содержать только цифры и должно быть меньше или равно " + Long.MAX_VALUE,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT,collectionManager.getLabWork());
         } catch (SQLException e) {
-            return new ResponseWithTreeSet("такой лабораторной нет",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.NO_SUCH_LABORATORY,collectionManager.getLabWork());
         } catch (Exception e) {
-            return new ResponseWithTreeSet("Произошла неизвестная ошибка",collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR,collectionManager.getLabWork());
         }
     }
 }
