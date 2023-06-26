@@ -22,8 +22,12 @@ public class CommandStatusRB_en_US extends ListResourceBundle {
                 {"removeLower", "Deleting all the labs below the specified Id was successful"},
                 {"readingError", "Unable to read the script"},
                 {"goodUpdate", "The laboratory work has been updated"},
-                {"badUpdate", "The update of the laboratory work was unsuccessful"}
-
+                {"badUpdate", "The update of the laboratory work was unsuccessful"},
+                {"info", "Type: %s \n"
+                        + "Number of elements: %s \n"
+                        + "Initialization date: %s"},
+                {"average", "the average value of the minimal Point field for all elements of the collection = %s"},
+                {"sumOfMinimalPoint", "the sum of the values of the minimal Point field for all elements of the collection = %s"}
         };
         return contents;
     }

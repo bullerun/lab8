@@ -27,9 +27,9 @@ public class HistoryCommand extends AbstractCommand {
                 s.append(lastCommands.get(i)).append("\n");
             }
             //исправить
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null, null);
         }catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null, null);
 
         }
     }

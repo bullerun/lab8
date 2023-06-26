@@ -7,6 +7,8 @@ import common.data.LabWork;
 import common.exception.MustBeEmptyException;
 import server.manager.CollectionManager;
 
+import java.util.ArrayList;
+
 /**
  * class sum of minimal point command
  *
@@ -25,16 +27,16 @@ public class SumOfMinimalPointCommand extends AbstractCommand {
     public ResponseWithTreeSet execute(String argument, Long client) {
         try {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
-            long SumOfMinimalPoints = 0;
+            long sumOfMinimalPoints = 0;
             for (LabWork i : collectionManager.getLabWork()) {
-                SumOfMinimalPoints += i.getMinimalPoint();
+                sumOfMinimalPoints += i.getMinimalPoint();
             }
-//            return new ResponseWithTreeSet("сумму значений поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints,collectionManager.getLabWork());
-//            исправить
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
+            ArrayList<String> args = new ArrayList<>();
+            args.add(String.valueOf(sumOfMinimalPoints));
+            return new ResponseWithTreeSet(ResponseStatusEnum.SUM_OF_MINIMAL_POINT, collectionManager.getLabWork(), args);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT,collectionManager.getLabWork());
-            
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork(), null);
+
         }
     }
 }

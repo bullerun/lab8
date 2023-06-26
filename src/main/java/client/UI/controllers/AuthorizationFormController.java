@@ -86,7 +86,6 @@ public class AuthorizationFormController {
     void onSignUpButton(ActionEvent event) {
         Button button = (Button) event.getTarget();
         button.setDisable(true);
-        System.out.println(123);
         ResponseWithBooleanType response = Console.authentication("reg", logInTextField.getText(), passwordTextField.getText());
         if (response != null) {
             if (response.getAuth()) {

@@ -22,7 +22,12 @@ public class CommandStatusRB_li_LI extends ListResourceBundle {
                 {"removeLower", "Sėkmingai ištrinti visi laboratoriniai darbai, kurių Id mažesnis nei nurodytas"},
                 {"readingError", "Nepavyksta perskaityti scenarijaus"},
                 {"goodUpdate", "Laboratorinis darbas atnaujintas"},
-                {"badUpdate", "Nepavyko atnaujinti laboratorinio darbo"}
+                {"badUpdate", "Nepavyko atnaujinti laboratorinio darbo"},
+                {"info", "Tipas: %s \n"
+                        + "Elementų skaičius: %s \n"
+                        + "Inicijavimo data: %s"},
+                {"average", "vidutinė minimalaus taško reikšmė visiems kolekcijos elementams = %s"},
+                {"sumOfMinimalPoint", "minimalaus taško reikšmių suma visiems kolekcijos elementams = %s"}
 
         };
         return contents;

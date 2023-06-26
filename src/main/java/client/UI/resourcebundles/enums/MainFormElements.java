@@ -22,7 +22,9 @@ public enum MainFormElements {
     CLEAR_BUTTON("clearButton"),
     CONTROLLERS_LABEL("controllersLabel"),
     EXECUTE_SCRIPT_BUTTON("executeScriptButton"),
-    VISUALIZE_BUTTON("visualizeButton");
+    VISUALIZE_BUTTON("visualizeButton"),
+    SUM_OF_MINIMAL_POINT("sumOfMinimalPoint"),
+    AVERAGE("averageOfMinimalPoint");
     private final String bundleObjectName;
 
     MainFormElements(String bundleObjectName){

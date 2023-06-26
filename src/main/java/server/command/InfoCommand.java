@@ -5,6 +5,8 @@ import common.ResponseWithTreeSet;
 import common.exception.MustBeEmptyException;
 import server.manager.CollectionManager;
 
+import java.util.ArrayList;
+
 /**
  * command outputs information about the collection
  *
@@ -23,12 +25,13 @@ public class InfoCommand extends AbstractCommand {
     public ResponseWithTreeSet execute(String argument, Long client) {
         try {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
-//            return new ResponseWithTreeSet("Тип " + collectionManager.getLabWork().getClass() + "\n"
-//                    + "Количество элементов: " + collectionManager.getLabWork().size() + "\n"
-//                    + "Дата инициализации: " + collectionManager.getCreatingCollection(), collectionManager.getLabWork());
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
+            ArrayList<String> args = new ArrayList<>();
+            args.add(String.valueOf(collectionManager.getLabWork().getClass()));
+            args.add(String.valueOf(collectionManager.getLabWork().size()));
+            args.add(String.valueOf(collectionManager.getCreatingCollection()));
+            return new ResponseWithTreeSet(ResponseStatusEnum.INFO, collectionManager.getLabWork(), args);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork(), null);
 
         }
     }

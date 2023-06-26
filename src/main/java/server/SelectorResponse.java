@@ -57,7 +57,7 @@ public class SelectorResponse {
         try {
             return commandManager.commandSelection(command, sqlUserManager.login(client));
         } catch (SQLException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null, null);
         }
     }
 
@@ -65,7 +65,7 @@ public class SelectorResponse {
         try {
             return commandManager.commandSelection(command, labWork, sqlUserManager.login(client));
         } catch (SQLException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null, null);
         }
     }
 

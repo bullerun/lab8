@@ -22,7 +22,12 @@ public class CommandStatusRB_ro_RO extends ListResourceBundle {
                 {"removeLower", "Ștergerea tuturor laboratoarelor cu un Id mai mic decât cel specificat a fost realizată cu succes"},
                 {"readingError", "Nu se poate citi scriptul"},
                 {"goodUpdate", "Laboratorul a fost actualizat cu succes"},
-                {"badUpdate", "Actualizarea laboratorului a eșuat"}
+                {"badUpdate", "Actualizarea laboratorului a eșuat"},
+                {"info", "Tip: %s \n"
+                        + "Număr de elemente: %s \n"
+                        + "Dată de inițializare: %s"},
+                {"average", "valoarea medie a câmpului Punct minim pentru toate elementele colecției = %s"},
+                {"sumOfMinimalPoint", "suma valorilor câmpului Punct minim pentru toate elementele colecției = %s"}
 
         };
         return contents;

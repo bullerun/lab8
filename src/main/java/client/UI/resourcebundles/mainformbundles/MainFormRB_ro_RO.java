@@ -22,7 +22,9 @@ public class MainFormRB_ro_RO extends ListResourceBundle {
                 {"languageMenuItem", "Limba"},
                 {"logOutMenuItem", "Deconectare"},
                 {"executeScriptButton", "Executați scriptul"},
-                {"visualizeButton", "Vizualizează"}
+                {"visualizeButton", "Vizualizează"},
+                {"sumOfMinimalPoint", "Suma punctului minim"},
+                {"averageOfMinimalPoint", "Media punctului minim"}
         };
         return contents;
     }

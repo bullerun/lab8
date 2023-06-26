@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.IllegalBlockingModeException;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -90,6 +91,7 @@ public class Console {
                 sender.sendMessageWithCommands(scriptReader.getCommands(), client);
                 scriptReader.clearCommands();
                 ResponseExecuteScript response = (ResponseExecuteScript) waitForResponse();
+                assert response != null;
                 for (ResponseStatusEnum i : response.getResponse()) {
                     Notifications.create().position(Pos.TOP_CENTER).text(i.toString()).show();
                 }
@@ -97,12 +99,6 @@ public class Console {
                 Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.READING_ERROR.toString()).show();
             }
         }
-    }
-
-    private static Response hookResponse() throws IOException {
-        Response response = (Response) waitForResponse();
-        sender.clearInBuffer();
-        return response;
     }
 
 
@@ -115,9 +111,19 @@ public class Console {
                 sender.sendMessage(command, client);
                 ResponseWithTreeSet response = hookUpdateResponse();
                 if (response != null && response.getLabWork() != null) {
-                    Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse().toString()).show();
+                    if (response.getArgs() != null) {
+                        ArrayList<String> args = response.getArgs();
+                        if (response.getArgs().size() == 3) {
+                            Notifications.create().position(Pos.TOP_CENTER).text(String.format(response.getResponse().toString(), args.get(0), args.get(1), args.get(2))).show();
+                        } else {
+                            Notifications.create().position(Pos.TOP_CENTER).text(String.format(response.getResponse().toString(), args.get(0))).show();
+                        }
+                    } else {
+                        Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse().toString()).show();
+                    }
                     TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
                     tableViewHandler.initializeData(response.getLabWork());
+
                 }
             }
         } catch (IOException e) {
@@ -129,7 +135,6 @@ public class Console {
     private static ResponseWithTreeSet hookUpdateResponse() throws IOException {
         ResponseWithTreeSet response = (ResponseWithTreeSet) waitForResponse();
         if (response != null && response.getLabWork() != null) {
-            sender.clearInBuffer();
             return response;
         }
         return null;
@@ -143,12 +148,16 @@ public class Console {
             if (sender.checkForMessage()) {
                 Object received = sender.getPayload();
                 if (received instanceof ResponseWithTreeSet) {
+                    sender.clearInBuffer();
                     return received;
                 } else if (received instanceof ResponseWithBooleanType) {
+                    sender.clearInBuffer();
                     return received;
                 } else if (received instanceof ResponseWithLabWork) {
+                    sender.clearInBuffer();
                     return received;
-                } else if (received instanceof Response) {
+                } else if (received instanceof ResponseExecuteScript) {
+                    sender.clearInBuffer();
                     return received;
                 }
             }
@@ -216,21 +225,20 @@ public class Console {
         ResponseWithBooleanType responseWithBooleanType = (ResponseWithBooleanType) waitForResponse();
         if (responseWithBooleanType != null) {
             if (responseWithBooleanType.getClient().getId() != null) client = responseWithBooleanType.getClient();
-            sender.clearInBuffer();
             return responseWithBooleanType;
         } else System.out.println("С сервера ничего не пришло");
         return null;
     }
 
-    public static void start() {
+    public static boolean start() {
         try {
             SocketChannel socket = SocketChannel.open();
-            if (!connection(socket)) {
-                System.out.println("сервер не отвечает");
-                return;
+            if (connection(socket)) {
+                socket.configureBlocking(false);
+                sender.setSocket(socket);
+                return true;
             }
-            socket.configureBlocking(false);
-            sender.setSocket(socket);
+            return false;
         } catch (IOException e) {
             throw new RuntimeException();
         }

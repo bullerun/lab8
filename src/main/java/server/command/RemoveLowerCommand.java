@@ -30,20 +30,20 @@ public class RemoveLowerCommand extends AbstractCommand {
             sqlCollectionManager.removeLower(Long.parseLong(argument.trim()), client);
             var count = collectionManager.removeLower(Long.parseLong(argument.trim()), client);
             if (count >0) {
-                return new ResponseWithTreeSet(ResponseStatusEnum.REMOVE_LOWER, collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.REMOVE_LOWER, collectionManager.getLabWork(), null);
             }
-            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST, collectionManager.getLabWork(), null);
         } catch (MustBeNotEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT, collectionManager.getLabWork(), null);
 
         } catch (NullPointerException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.NO_SUCH_LABORATORY, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.NO_SUCH_LABORATORY, collectionManager.getLabWork(), null);
 
         } catch (NumberFormatException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT, collectionManager.getLabWork(), null);
 
         } catch (Exception e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork(), null);
         }
     }
 }

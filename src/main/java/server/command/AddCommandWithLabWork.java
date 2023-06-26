@@ -24,9 +24,9 @@ public class AddCommandWithLabWork extends AbstractCommandWithLabWork {
             labWork.setId(sqlCollectionManager.addInDB(labWork, client));
             labWork.setOwnerID(client);
             collectionManager.addToCollection(labWork);
-            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_SUCCESSFULLY_ADDED, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_SUCCESSFULLY_ADDED, collectionManager.getLabWork(), null);
         } catch (Exception e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_NOT_ADDED, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.LAB_NOT_ADDED, null, null);
         }
     }
 }

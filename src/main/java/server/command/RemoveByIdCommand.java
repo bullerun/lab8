@@ -30,18 +30,16 @@ public class RemoveByIdCommand extends AbstractCommand {
             if (argument.isEmpty()) throw new MustBeNotEmptyException();
             sqlCollectionManager.removeByID(Long.parseLong(argument.trim()), client);
             if (collectionManager.removeByID(Long.parseLong(argument.trim()), client)) {
-                return new ResponseWithTreeSet(ResponseStatusEnum.LABORATORY_WORK_WITH_THIS_ID_HAS_BEEN_DELETED,collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.LABORATORY_WORK_WITH_THIS_ID_HAS_BEEN_DELETED,collectionManager.getLabWork(), null);
             }
-            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST,collectionManager.getLabWork(), null);
         } catch (MustBeNotEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.LACK_OF_ARGUMENT,collectionManager.getLabWork(), null);
 
         } catch (NumberFormatException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT,collectionManager.getLabWork());
-        } catch (SQLException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.NO_SUCH_LABORATORY,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.INVALID_ARGUMENT,collectionManager.getLabWork(), null);
         } catch (Exception e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR,collectionManager.getLabWork(), null);
         }
     }
 }

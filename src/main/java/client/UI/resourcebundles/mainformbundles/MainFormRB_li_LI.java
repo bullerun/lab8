@@ -22,7 +22,9 @@ public class MainFormRB_li_LI extends ListResourceBundle {
                 {"languageMenuItem", "Kalba"},
                 {"logOutMenuItem", "Atsijungti"},
                 {"executeScriptButton", "Vykdyti scenarijų"},
-                {"visualizeButton", "Vizualizuoti"}
+                {"visualizeButton", "Vizualizuoti"},
+                {"sumOfMinimalPoint", "Minimalaus taško suma"},
+                {"averageOfMinimalPoint", "Minimalaus taško vidurkis"}
         };
         return contents;
     }

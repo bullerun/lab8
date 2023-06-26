@@ -104,8 +104,9 @@ public class LabWorkAddAndUpdatingFormController {
         if (checkValidation()) {
             data = collectData();
             currentStage.close();
+        } else {
+            Notifications.create().text(RuntimeOutputs.FIELDS_DOES_NOT_VALID.toString()).position(Pos.TOP_CENTER).show();
         }
-        Notifications.create().text(RuntimeOutputs.FIELDS_DOES_NOT_VALID.toString()).position(Pos.TOP_CENTER).show();
     }
 
     private boolean checkValidation() {
@@ -251,7 +252,7 @@ public class LabWorkAddAndUpdatingFormController {
         coordinateXTextField.setText(String.valueOf(labWork.getCoordinates().getX()));
         coordinateYTextField.setText(String.valueOf(labWork.getCoordinates().getY()));
         minimalPointTextField.setText(String.valueOf(labWork.getMinimalPoint()));
-        if (labWork.getDifficulty()!=null) difficultyLabel.setText(labWork.getDifficulty().toString());
+        if (labWork.getDifficulty() != null) difficultyLabel.setText(labWork.getDifficulty().toString());
         disciplineNameTextField.setText(labWork.getDiscipline().getName());
         practiceHoursTextField.setText(String.valueOf(labWork.getDiscipline().getPracticeHours()));
     }

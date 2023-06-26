@@ -6,6 +6,8 @@ import common.data.LabWork;
 import common.exception.MustBeEmptyException;
 import server.manager.CollectionManager;
 
+import java.util.ArrayList;
+
 
 /**
  * outputs the average value of the minimal Point field for all items in the collection
@@ -31,14 +33,14 @@ public class AverageOfMinimalPointCommand extends AbstractCommand {
                 SumOfMinimalPoints += i.getMinimalPoint();
                 count += 1;
             }
-//            return new ResponseWithTreeSet("среднее значение поля minimalPoint для всех элементов коллекции = " + SumOfMinimalPoints / count, collectionManager.getLabWork());
-            // исправить
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, collectionManager.getLabWork());
+            ArrayList<String> args = new ArrayList<>();
+            args.add(String.valueOf(SumOfMinimalPoints / count));
+            return new ResponseWithTreeSet(ResponseStatusEnum.AVERAGE, collectionManager.getLabWork(), args);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork(), null);
 
         } catch (ArithmeticException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork(), null);
 
         }
     }

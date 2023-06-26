@@ -15,7 +15,7 @@ import java.util.NavigableSet;
 public class ServerListener {
     private Sender sender;
 
-    private static final int TIMEOUT = 3;
+    private static final int TIMEOUT = 10;
     private static final int TIMEOUTMS = 5000;
     private static final int MILLIS_IN_SECONDS = 1000;
     private NavigableSet<LabWork> labs;
@@ -29,7 +29,7 @@ public class ServerListener {
             Console.show();
             waitResponse();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 break;
             }
@@ -45,8 +45,8 @@ public class ServerListener {
                 if (sender.checkForMessage()) {
                     Object received = sender.getPayload();
                     if (received instanceof ResponseWithTreeSet) {
-                        sender.clearInBuffer();
                         updatingTable((ResponseWithTreeSet) received);
+                        sender.clearInBuffer();
                         return;
                     }
                 }
@@ -81,7 +81,7 @@ public class ServerListener {
                 }
             }
         } catch (NullPointerException e) {
-            showNewData(newLabs);
+            if (newLabs!=null) showNewData(newLabs);
         }
     }
 

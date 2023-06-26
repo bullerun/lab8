@@ -23,7 +23,10 @@ public enum ResponseStatusEnum implements Serializable {
     REMOVE_LOWER("removeLower"),
     READING_ERROR("readingError"),
     GOOD_UPDATE("goodUpdate"),
-    BAD_UPDATE("badUpdate");
+    BAD_UPDATE("badUpdate"),
+    INFO("info"),
+    AVERAGE("average"),
+    SUM_OF_MINIMAL_POINT("sumOfMinimalPoint");
 
 
     private final String bundleObjectName;

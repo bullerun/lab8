@@ -111,7 +111,9 @@
             <Button fx:id="removeGreater" minHeight="26.0" minWidth="129.0" mnemonicParsing="false" onAction="#onRemoveGreater" prefWidth="129.0" text=" remove greater" textAlignment="CENTER" wrapText="true" />
             <Button fx:id="removeLower" mnemonicParsing="false" onAction="#onRemoveLower" prefWidth="129.0" text="remove lower" textAlignment="CENTER" wrapText="true" />
             <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClearButtonPressed" prefHeight="26.0" prefWidth="129.0" text="clear" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="executeScriptButton" mnemonicParsing="false" onAction="#onExecuteScriptButtonPressed" prefWidth="129.0" text="Execute script" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="executeScriptButton" mnemonicParsing="false" onAction="#onExecuteScriptButtonPressed" prefWidth="129.0" text="execute script" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="averageOfMinimalPoint" mnemonicParsing="false" onAction="#onAverageOfMinimalPoint" prefWidth="129.0" text="average of minimal point" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="sumOfMinimalPoint" mnemonicParsing="false" onAction="#onSumOfMinimalPoint" prefWidth="129.0" text="sum of minimal point" textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
    </children>

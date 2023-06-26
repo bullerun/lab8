@@ -29,9 +29,9 @@ public class HelpCommand extends AbstractCommand {
                 s.append("Команда ").append(i.getName()).append(" ").append(i.getDescription()).append("\n");
             }
 //            исправить
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR, null, null);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, null, null);
         }
     }
 }

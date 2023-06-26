@@ -24,13 +24,13 @@ public class ShowCommand extends AbstractCommand{
         try {
             if (!argument.isEmpty()) throw new MustBeEmptyException();
             if (collectionManager.getLabWork().size() == 0) {
-                return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
+                return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork(), null);
             }
 
-            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY, collectionManager.getLabWork(), null);
             
         }catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT, collectionManager.getLabWork(), null);
         }
     }
 }

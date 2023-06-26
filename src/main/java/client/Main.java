@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 public class Main extends Application {
     private static Stage primaryStage;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AuthorizationForm.fxml"));
@@ -46,15 +47,19 @@ public class Main extends Application {
             Console console = new Console(scanner, scriptReader);
             Console.setAddress(addr);
             ValidationChecker validationChecker = new ValidationChecker();
-            Console.start();
-            launch();
-            Console.shotDown();
+            if (Console.start()) {
+                launch();
+                Console.shotDown();
+            } else {
+                System.exit(1);
+            }
         } catch (NumberFormatException e) {
             System.out.println("Некорректный порт");
         } catch (IOException e) {
             System.out.println("Не удалось запустить приложение");
         }
     }
+
     public static Stage getPrimaryStage() {
         return primaryStage;
     }

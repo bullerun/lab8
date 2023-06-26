@@ -39,7 +39,7 @@ public class CommandManager {
         commandsForHelpCommand.add(new AverageOfMinimalPointCommand(collectionManager));
         commandsForHelpCommand.add(new ClearCommand(collectionManager, sqlCollectionManager));
         commandsForHelpCommand.add(new ExecuteScriptCommand());
-        commandsForHelpCommand.add(new PrintFieldDescendingDisciplineCommand(collectionManager));
+
         commandsForHelpCommand.add(new RemoveGreaterCommand(collectionManager, sqlCollectionManager));
         commandsForHelpCommand.add(new RemoveLowerCommand(collectionManager, sqlCollectionManager));
 
@@ -55,7 +55,6 @@ public class CommandManager {
         commands.put("sum_of_minimal_point", new SumOfMinimalPointCommand(collectionManager));
         commands.put("average_of_minimal_point", new AverageOfMinimalPointCommand(collectionManager));
         commands.put("clear", new ClearCommand(collectionManager, sqlCollectionManager));
-        commands.put("print_field_descending_discipline", new PrintFieldDescendingDisciplineCommand(collectionManager));
         commands.put("remove_greater", new RemoveGreaterCommand(collectionManager, sqlCollectionManager));
         commands.put("remove_lower", new RemoveLowerCommand(collectionManager, sqlCollectionManager));
         update = new UpdateByIdCommand(collectionManager);
@@ -77,7 +76,6 @@ public class CommandManager {
     }
 
     public ResponseExecuteScript commandSelectionFromScript(String command, ArrayList<String> commands, Long client) {
-        addCommandHistory(command);
         String stringWithCommands = String.join("\n", commands);
         setScanner(new Scanner(stringWithCommands));
         return new ResponseExecuteScript(localConsole(client));

@@ -22,7 +22,9 @@ public class MainFormRB_en_US extends ListResourceBundle {
                 {"languageMenuItem", "Language"},
                 {"logOutMenuItem", "Log out"},
                 {"executeScriptButton", "Execute script"},
-                {"visualizeButton", "Visualize"}
+                {"visualizeButton", "Visualize"},
+                {"sumOfMinimalPoint", "Sum of minimal point"},
+                {"averageOfMinimalPoint", "average of minimal point"}
         };
         return contents;
     }

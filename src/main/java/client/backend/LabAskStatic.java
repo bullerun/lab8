@@ -125,7 +125,7 @@ public class LabAskStatic {
 
     public static boolean practiceHoursDisciplineAsk(TextField textField, LabWorkAddAndUpdatingFormController controller) {
         try {
-            int minimalPoint = Integer.parseInt(textField.getText());
+            Integer.parseInt(textField.getText());
             setAcceptedValueTextFieldStyle(textField);
             controller.setPracticeHoursAskValidity(true);
             return true;

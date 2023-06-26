@@ -30,13 +30,13 @@ public class ClearCommand extends AbstractCommand{
             sqlCollectionManager.clear(client);
             collectionManager.clearCollection(client);
         } catch (MustBeEmptyException e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.MUST_BE_WITHOUT_AN_ARGUMENT,collectionManager.getLabWork(), null);
 
         }catch (MustBeNotEmptyException e){
-            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_IS_EMPTY,collectionManager.getLabWork(), null);
         }catch (Exception e){
-            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR_WHEN_TRYING_TO_CLEAR_THE_COLLECTION,collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.ERROR_WHEN_TRYING_TO_CLEAR_THE_COLLECTION,collectionManager.getLabWork(), null);
         }
-        return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_CLEANUP_WAS_SUCCESSFUL,collectionManager.getLabWork());
+        return new ResponseWithTreeSet(ResponseStatusEnum.COLLECTION_CLEANUP_WAS_SUCCESSFUL,collectionManager.getLabWork(), null);
     }
 }

@@ -23,9 +23,9 @@ public class UpdateByIdCommandWithLabWork extends AbstractCommandWithLabWork {
         try {
             sqlCollectionManager.update(labWork, client);
             collectionManager.update(labWork, client);
-            return new ResponseWithTreeSet(ResponseStatusEnum.GOOD_UPDATE, collectionManager.getLabWork());
+            return new ResponseWithTreeSet(ResponseStatusEnum.GOOD_UPDATE, collectionManager.getLabWork(), null);
         } catch (Exception e) {
-            return new ResponseWithTreeSet(ResponseStatusEnum.BAD_UPDATE, null);
+            return new ResponseWithTreeSet(ResponseStatusEnum.BAD_UPDATE, null, null);
         }
     }
 }

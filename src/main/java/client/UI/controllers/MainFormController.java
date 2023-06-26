@@ -10,6 +10,7 @@ import client.backend.Console;
 
 import client.backend.tableHandlers.TableViewHandler;
 import common.DataField;
+import common.ResponseStatusEnum;
 import common.data.LabWork;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -37,7 +38,11 @@ import java.util.NavigableSet;
 public class MainFormController {
     @FXML
     private Menu infoMenu;
+    @FXML
+    private Button averageOfMinimalPoint;
 
+    @FXML
+    private Button sumOfMinimalPoint;
     @FXML
     private Menu settingsMenu;
 
@@ -140,6 +145,8 @@ public class MainFormController {
         executeScriptButton.setText(MainFormElements.EXECUTE_SCRIPT_BUTTON.toString());
         visualizeButton.setText(MainFormElements.VISUALIZE_BUTTON.toString());
         infoMenuItem.setText(MainFormElements.INFO_MENU.toString());
+        averageOfMinimalPoint.setText(MainFormElements.AVERAGE.toString());
+        sumOfMinimalPoint.setText(MainFormElements.SUM_OF_MINIMAL_POINT.toString());
     }
 
     @FXML
@@ -153,7 +160,7 @@ public class MainFormController {
             Console.add(data);
         } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
             alert.show();
         } finally {
             button.setDisable(false);
@@ -229,7 +236,10 @@ public class MainFormController {
             button.setDisable(true);
             LabWork labWork = (LabWork) tableView.getSelectionModel().getSelectedItem();
             if (labWork != null) {
-                if (!checkModelUserId(labWork)) return;
+                if (!checkModelUserId(labWork)){
+                    Notifications.create().position(Pos.TOP_CENTER).text(ResponseStatusEnum.LACK_OF_RIGHTS_OR_OR_LABORATORY_DOES_NOT_EXIST.toString()).show();
+                    return;
+                };
                 Console.selectCommand(new String[]{"remove_by_id", String.valueOf(labWork.getId())});
             }else {
                 Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.MODEL_WAS_NOT_SELECTED_IN_TABLE.toString()).show();
@@ -268,7 +278,6 @@ public class MainFormController {
         if (file != null && file.exists()) {
             Console.execute_script(file.getAbsolutePath());
         }
-        Console.selectCommand(new String[]{"show", ""});
     }
 
     @FXML
@@ -431,5 +440,16 @@ public class MainFormController {
         stage.setScene(scene);
         stage.showAndWait();
         return labWorkAddAndUpdatingFormController;
+    }
+
+
+
+    @FXML
+    void onSumOfMinimalPoint(ActionEvent event) {
+        Console.selectCommand(new String[]{"sum_of_minimal_point", ""});
+    }
+    @FXML
+    void onAverageOfMinimalPoint(ActionEvent event) {
+        Console.selectCommand(new String[]{"average_of_minimal_point", ""});
     }
 }
