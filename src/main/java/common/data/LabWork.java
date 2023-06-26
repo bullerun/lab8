@@ -6,6 +6,7 @@ import common.exception.RangeException;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * class of creating a laboratory work
@@ -20,14 +21,17 @@ public class LabWork implements Comparable<LabWork>, Serializable {
     private Coordinates coordinates; //Поле не может быть null
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
+
     private long minimalPoint; //Значение поля должно быть больше 0
+
     private Difficulty difficulty; //Поле может быть null
     private Discipline discipline; //Поле может быть null
     private Long ownerID;
-
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
+
     public LabWork(Long id) {
         this.id = id;
         this.creationDate = LocalDate.now();
@@ -39,7 +43,6 @@ public class LabWork implements Comparable<LabWork>, Serializable {
         this.coordinates = new Coordinates();
         this.discipline = new Discipline();
     }
-
     public long getId() {
         return id;
     }
@@ -67,20 +70,20 @@ public class LabWork implements Comparable<LabWork>, Serializable {
     public Discipline getDiscipline() {
         return discipline;
     }
+
     public void setId(Long id){
         this.id = id;
     }
-
     public void setName(String name) throws MustBeNotEmptyException {
         if (name.equals("")) throw new MustBeNotEmptyException();
         this.name = name;
     }
+
     public void setCoordinates(Coordinates coordinates){this.coordinates = coordinates;}
     public void setMinimalPoint(long minimalPoint) throws RangeException {
         if (minimalPoint <= MINIMAL_POINT) throw new RangeException();
         this.minimalPoint = minimalPoint;
     }
-
     public void setDifficulty(String difficulty) throws IllegalArgumentException{
         if (difficulty.equals("")) this.difficulty = null;
         else {
@@ -91,11 +94,20 @@ public class LabWork implements Comparable<LabWork>, Serializable {
     public void setDiscipline(Discipline discipline) {
         this.discipline = discipline;
     }
+
     public void setOwnerID(Long ownerID){
         this.ownerID = ownerID;
     }
     public Long getOwnerID(){
         return ownerID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LabWork labWork = (LabWork) o;
+        return minimalPoint == labWork.minimalPoint && Objects.equals(id, labWork.id) && Objects.equals(name, labWork.name) && Objects.equals(coordinates, labWork.coordinates) && Objects.equals(creationDate, labWork.creationDate) && difficulty == labWork.difficulty && Objects.equals(discipline, labWork.discipline) && Objects.equals(ownerID, labWork.ownerID);
     }
 
     @Override
@@ -113,5 +125,10 @@ public class LabWork implements Comparable<LabWork>, Serializable {
     @Override
     public int compareTo(LabWork other) {
         return id.compareTo(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(MINIMAL_POINT, id, name, coordinates, creationDate, minimalPoint, difficulty, discipline, ownerID);
     }
 }

@@ -1,6 +1,7 @@
 package client.backend;
 
 import client.UI.controllers.MainFormController;
+import client.UI.controllers.VisualizerFormController;
 import client.backend.tableHandlers.TableViewHandler;
 import common.*;
 import javafx.geometry.Pos;
@@ -29,6 +30,7 @@ public class Console {
     private static final int MILLIS_IN_SECONDS = 1000;
 
     public static Authentication client;
+    public static Thread serverListener;
     private final Scanner scanner;
     private static InetSocketAddress address;
     private static ScriptReader scriptReader;
@@ -54,13 +56,12 @@ public class Console {
     public static void add(LabWork labWork) {
         try {
             sender.sendMessageWithLabWork("add", labWork, client);
-//            ResponseWithTreeSet response = hookUpdateResponse();
-//            if (response != null && response.getLabWork() != null) {
-//                Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
-//                TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
-//                tableViewHandler.initializeData(response.getLabWork());
-//                Notifications.create().position(Pos.TOP_CENTER).text("Добавление прошло успешно").show();
-//            }
+            ResponseWithTreeSet response = hookUpdateResponse();
+            if (response != null && response.getLabWork() != null) {
+                TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
+                tableViewHandler.initializeData(response.getLabWork());
+                Notifications.create().position(Pos.TOP_CENTER).text("Добавление прошло успешно").show();
+            }
         } catch (IOException ignored) {
             Notifications.create().position(Pos.TOP_CENTER).text("ошибка добавление").show();
         }
@@ -75,6 +76,7 @@ public class Console {
                 Notifications.create().position(Pos.TOP_CENTER).text(response.getResponse()).show();
                 TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
                 tableViewHandler.initializeData(response.getLabWork());
+                VisualizerFormController.step = 0;
             } else {
                 Notifications.create().position(Pos.TOP_CENTER).text("ошибка обновления").show();
             }
@@ -184,7 +186,9 @@ public class Console {
         }
         try {
             sender.sendAuth(command, client);
-            return  hookResponseWithBooleanType();
+            ResponseWithBooleanType response = hookResponseWithBooleanType();
+            System.out.println(response.getClient().getId());
+            return response;
         } catch (IOException e) {
             return new ResponseWithBooleanType(AuthorizationError.ERROR, false, client);
 
@@ -192,10 +196,19 @@ public class Console {
     }
 
     public static void startServerListener() {
-        new Thread(() -> {
-            ServerListener serverListener= new ServerListener(sender);
+        serverListener = new Thread(() -> {
+            ServerListener serverListener = new ServerListener(sender);
             serverListener.checkUpdating();
-        }).start();
+        });
+        serverListener.start();
+    }
+
+    public static void shotDown() {
+        try {
+            serverListener.interrupt();
+
+        } catch (Exception ignored) {
+        }
     }
 
     private static ResponseWithBooleanType hookResponseWithBooleanType() throws IOException {

@@ -86,6 +86,7 @@ public class AuthorizationFormController {
     void onSignUpButton(ActionEvent event) {
         Button button = (Button) event.getTarget();
         button.setDisable(true);
+        System.out.println(123);
         ResponseWithBooleanType response = Console.authentication("reg", logInTextField.getText(), passwordTextField.getText());
         if (response != null) {
             if (response.getAuth()) {
@@ -101,7 +102,6 @@ public class AuthorizationFormController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("DataGridForm.fxml"));
             Parent parent = fxmlLoader.load();
-
             MainFormController mainFormController = fxmlLoader.getController();
             mainFormController.getUserMenu().setText("ID = " + Console.client.getId().toString());
             Scene scene = new Scene(parent, 800, 600);
@@ -129,5 +129,6 @@ public class AuthorizationFormController {
         passwordLable.setText(AuthorizationFormElements.PASSWORD_LABEL.toString());
         signUpButton.setText(AuthorizationFormElements.SIGN_UP_BUTTON.toString());
         signInButton.setText(AuthorizationFormElements.SIGN_IN_BUTTON.toString());
+        textLabel.setText("");
     }
 }

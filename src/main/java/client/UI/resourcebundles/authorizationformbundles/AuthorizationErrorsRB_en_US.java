@@ -6,10 +6,10 @@ public class AuthorizationErrorsRB_en_US extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         Object[][] contents = {
-                {"nameLength", "127"},
-                {"passwordLength", "8"},
-                {"empty", "must be not empty"},
-                {"error", "error"}
+                {"nameLength", "The user name must be less than 127 characters"},
+                {"passwordLength", "The password must be equal to 8 characters"},
+                {"empty", "Fields must not be empty"},
+                {"error", "Failed to authorize the user"}
         };
         return contents;
     }

@@ -38,8 +38,8 @@ public class LabAskStatic {
     public static boolean checkX(TextField textField, LabWorkAddAndUpdatingFormController controller) {
         try {
             float coordinates = Float.parseFloat(textField.getText());
-            if (coordinates <= MINIMAL_X_COORDINATES) throw new RangeException();
-            if (coordinates == Float.POSITIVE_INFINITY) throw new IllegalArgumentException();
+            if (coordinates <= MINIMAL_X_COORDINATES || coordinates > 3000) throw new RangeException();
+//            if (coordinates == Float.POSITIVE_INFINITY) throw new IllegalArgumentException();
             setAcceptedValueTextFieldStyle(textField);
             controller.setCoordinateXValidity(true);
             return true;
@@ -51,15 +51,38 @@ public class LabAskStatic {
 
     }
 
+    public static boolean checkX(TextField textField) {
+        try {
+            float coordinates = Float.parseFloat(textField.getText());
+            if (coordinates <= MINIMAL_X_COORDINATES || coordinates > 3000f) throw new RangeException();
+//            if (coordinates == Float.POSITIVE_INFINITY) throw new IllegalArgumentException();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public static boolean checkY(TextField textField, LabWorkAddAndUpdatingFormController controller) {
         try {
             Long y = Long.parseLong(textField.getText());
+            if (y > 3000) throw new RangeException();
             setAcceptedValueTextFieldStyle(textField);
             controller.setCoordinateYValidity(true);
             return true;
         } catch (Exception e) {
             setWrongValueTextFieldStyle(textField);
             controller.setCoordinateYValidity(false);
+            return false;
+        }
+    }
+
+    public static boolean checkY(TextField textField) {
+        try {
+            Long y = Long.parseLong(textField.getText());
+            if (y > 3000) throw new RangeException();
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }

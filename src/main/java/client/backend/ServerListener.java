@@ -6,8 +6,11 @@ import common.Response;
 import common.ResponseWithBooleanType;
 import common.ResponseWithLabWork;
 import common.ResponseWithTreeSet;
+import common.data.LabWork;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.NavigableSet;
 
 public class ServerListener {
     private Sender sender;
@@ -15,22 +18,20 @@ public class ServerListener {
     private static final int TIMEOUT = 3;
     private static final int TIMEOUTMS = 5000;
     private static final int MILLIS_IN_SECONDS = 1000;
+    private NavigableSet<LabWork> labs;
 
     public ServerListener(Sender sender) {
         this.sender = sender;
     }
 
     public void checkUpdating() {
-        System.out.println(2);
-
         while (true) {
-            System.out.println(3);
             Console.show();
             waitResponse();
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                break;
             }
         }
     }
@@ -44,8 +45,8 @@ public class ServerListener {
                 if (sender.checkForMessage()) {
                     Object received = sender.getPayload();
                     if (received instanceof ResponseWithTreeSet) {
-                        updatingTable((ResponseWithTreeSet) received);
                         sender.clearInBuffer();
+                        updatingTable((ResponseWithTreeSet) received);
                         return;
                     }
                 }
@@ -60,9 +61,33 @@ public class ServerListener {
 
 
     private void updatingTable(ResponseWithTreeSet response) {
-        System.out.println(5);
-        TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
-        tableViewHandler.initializeData(response.getLabWork());
+
+        NavigableSet<LabWork> newLabs = response.getLabWork();
+        try {
+            if (newLabs.size() != labs.size()) {
+                showNewData(newLabs);
+            }
+
+            if (newLabs != null) {
+                Iterator<LabWork> i = newLabs.iterator();
+                Iterator<LabWork> j = labs.iterator();
+                for (int k = 0; k < newLabs.size(); k++) {
+                    LabWork newLab = i.next();
+                    LabWork oldLab = j.next();
+                    if (!newLab.equals(oldLab)) {
+                        showNewData(newLabs);
+                        return;
+                    }
+                }
+            }
+        } catch (NullPointerException e) {
+            showNewData(newLabs);
+        }
     }
 
+    private void showNewData(NavigableSet<LabWork> newLabs) {
+        labs = newLabs;
+        TableViewHandler tableViewHandler = MainFormController.getMainFormController().getTableViewHandler();
+        tableViewHandler.initializeData(newLabs);
+    }
 }

@@ -10,29 +10,26 @@ import java.util.ResourceBundle;
 
 public enum AvailableLocales {
     ENGLISH(new Locale("en", "US"), "english", ZoneId.of("US/Central")),
-    RUSSIAN(new Locale("ru", "RU"), "russian", ZoneId.of("Europe/Moscow"));
-
-
+    RUSSIAN(new Locale("ru", "RU"), "russian", ZoneId.of("Europe/Moscow")),
+    LITHUANIAN(new Locale("li", "LI"), "lithuanian", ZoneId.of("Europe/Vilnius")),
+    ROMANIAN(new Locale("ro", "RO"), "romanian", ZoneId.of("Europe/Bucharest"));
     private Locale locale;
-
     private DateTimeFormatter dateTimeFormatter;
-
     private final String bundleObjectName;
-
     private final ZoneId zoneId;
 
-    AvailableLocales(Locale locale, String bundleObjectName, ZoneId zoneId){
+    AvailableLocales(Locale locale, String bundleObjectName, ZoneId zoneId) {
         this.locale = locale;
         this.bundleObjectName = bundleObjectName;
         this.zoneId = zoneId;
         this.dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).localizedBy(locale);
     }
 
-    public Locale getLocale(){
+    public Locale getLocale() {
         return locale;
     }
 
-    public ZoneId getZoneID(){
+    public ZoneId getZoneID() {
         return zoneId;
     }
 
@@ -42,7 +39,7 @@ public enum AvailableLocales {
         return resourceBundle.getString(bundleObjectName);
     }
 
-    public DateTimeFormatter getDateTimeFormatter(){
+    public DateTimeFormatter getDateTimeFormatter() {
         return dateTimeFormatter;
     }
 }

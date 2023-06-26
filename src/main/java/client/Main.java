@@ -29,7 +29,6 @@ public class Main extends Application {
         stage.setOpacity(1);
         stage.setScene(scene);
         stage.show();
-
     }
 
     public static void main(String[] args) {
@@ -51,6 +50,7 @@ public class Main extends Application {
             ValidationChecker validationChecker = new ValidationChecker();
             Console.start();
             launch();
+            Console.shotDown();
         } catch (NumberFormatException e) {
             System.out.println("Некорректный порт");
         } catch (IOException e) {

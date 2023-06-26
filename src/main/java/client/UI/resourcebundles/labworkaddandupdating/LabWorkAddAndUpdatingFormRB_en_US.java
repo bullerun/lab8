@@ -10,7 +10,7 @@ public class LabWorkAddAndUpdatingFormRB_en_US extends ListResourceBundle {
                 {"coordinateXTextField", "coordinate X"},
                 {"coordinateYTextField", "coordinate Y"},
                 {"minimalPointTextField", "minimal point"},
-                {"difficultyComboBox", "difficult"},
+                {"difficultyComboBox", "difficulty"},
                 {"disciplineNameTextField", "discipline name"},
                 {"practiceHoursTextField", "practice hours"},
 

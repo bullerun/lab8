@@ -45,9 +45,10 @@ public class SqlUserManager {
             ResultSet res = s.executeQuery();
             res.next();
 
-            conn.commit();
             logger.info("пользователь успешно добавлен");
             return res.getLong("id");
+        }finally {
+            conn.commit();
         }
     }
 
@@ -65,6 +66,7 @@ public class SqlUserManager {
 
 
     public Long login(Authentication client) throws SQLException, NullPointerException {
+
         try (PreparedStatement s = conn.prepareStatement("SELECT id, password, salt FROM users WHERE user_name = ? LIMIT 1")) {
             s.setString(1, client.getUserName());
             try (ResultSet res = s.executeQuery()) {
@@ -77,6 +79,8 @@ public class SqlUserManager {
                 }
             }
             return null;
+        }finally {
+            conn.commit();
         }
     }
 }

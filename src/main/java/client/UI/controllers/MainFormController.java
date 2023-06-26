@@ -114,9 +114,7 @@ public class MainFormController {
         tableViewHandler.initializeColumns();
         currentLocale.addListener(change -> updateLocale());
         updateLocale();
-        System.out.println(1);
         Console.startServerListener();
-        System.out.println(4);
     }
 
     private void updateLocale() {
@@ -272,7 +270,23 @@ public class MainFormController {
 
     @FXML
     protected void onVisualizationButtonPressed(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        Stage stage = Main.getPrimaryStage();
+        try {
+            button.setDisable(true);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("VisualizerForm.fxml"));
+            Parent parent = fxmlLoader.load();
+            Scene scene = new Scene(parent, 800, 600);
+            stage.setResizable(false);
+            stage.setScene(scene);
 
+        } catch (IOException exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+            alert.show();
+        } finally {
+            button.setDisable(false);
+        }
     }
 
     @FXML
@@ -324,6 +338,9 @@ public class MainFormController {
 
     public synchronized static MainFormController getMainFormController() {
         return mainFormController;
+    }
+    public  ObservableList<LabWork> getModelsCollection() {
+        return modelsCollection;
     }
 
     public HBox getFiltersHBox() {

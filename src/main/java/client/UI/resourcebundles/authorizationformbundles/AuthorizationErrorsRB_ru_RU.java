@@ -6,7 +6,7 @@ public class AuthorizationErrorsRB_ru_RU extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         Object[][] contents = {
-                {"nameLength", "имя пользователя должно быть меньше 127 символов"},
+                {"nameLength", "Имя пользователя должно быть меньше 127 символов"},
                 {"passwordLength", "Пароль должен быть равен 8 символам"},
                 {"empty", "Поля не должны быть пустыми"},
                 {"error", "Не удалось авторизовать пользователя"}

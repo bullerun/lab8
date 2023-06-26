@@ -7,8 +7,9 @@ public class AvailableLocalesRB_en_US extends ListResourceBundle {
     protected Object[][] getContents() {
         Object[][] contents = {
                 {"russian", "Russian"},
-                {"english", "English"}
-
+                {"english", "English"},
+                {"romanian","Romanian"},
+                {"lithuanian", "Lithuanian"}
         };
         return contents;
     }

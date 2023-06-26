@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import common.exception.RangeException;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * an auxiliary class for working with LabWork coordinates
@@ -42,5 +43,18 @@ public class Coordinates implements Serializable {
     @Override
     public String toString() {
         return x + ", " + y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinates that = (Coordinates) o;
+        return Float.compare(that.x, x) == 0 && Objects.equals(y, that.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

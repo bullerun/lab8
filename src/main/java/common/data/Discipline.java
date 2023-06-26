@@ -1,6 +1,7 @@
 package common.data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * an auxiliary class for working with LabWork discipline
@@ -38,5 +39,18 @@ public class Discipline implements Serializable {
     @Override
     public String toString() {
         return name + ", " + practiceHours;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Discipline that = (Discipline) o;
+        return practiceHours == that.practiceHours && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, practiceHours);
     }
 }
