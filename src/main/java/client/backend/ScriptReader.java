@@ -1,6 +1,9 @@
 package client.backend;
 
+import client.UI.resourcebundles.enums.RuntimeOutputs;
 import common.exception.ScriptRecursionException;
+import javafx.geometry.Pos;
+import org.controlsfx.control.Notifications;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -48,12 +51,12 @@ public class ScriptReader {
                 }
             } while (scriptScanner.hasNextLine());
         } catch (NoSuchElementException e) {
-            System.out.println("Скрипт пуст или отработал некорректно " + scriptPath);
+            Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.FILE_LISTENER_CAN_NOT_READ_FILE.toString()).show();
+
         } catch (IOException e) {
-            System.out.println("Файл не найден");
+            Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.FILE_LISTENER_PROBLEM_WITH_SCRIPT_FILE.toString()).show();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Введен неправильный аргумент");
+            Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.FIELDS_DOES_NOT_VALID.toString()).show();
         } finally {
 
             if (nameScripts.size() > 0) {

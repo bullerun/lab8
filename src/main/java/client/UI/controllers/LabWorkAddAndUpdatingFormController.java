@@ -1,6 +1,7 @@
 package client.UI.controllers;
 
 import client.UI.resourcebundles.enums.LabWorkAddAndUpdatingFormElements;
+import client.UI.resourcebundles.enums.RuntimeOutputs;
 import client.backend.LabAskStatic;
 import common.DataField;
 import common.data.Coordinates;
@@ -11,12 +12,14 @@ import common.exception.MustBeNotEmptyException;
 import common.exception.RangeException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,6 +105,7 @@ public class LabWorkAddAndUpdatingFormController {
             data = collectData();
             currentStage.close();
         }
+        Notifications.create().text(RuntimeOutputs.FIELDS_DOES_NOT_VALID.toString()).position(Pos.TOP_CENTER).show();
     }
 
     private boolean checkValidation() {

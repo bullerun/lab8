@@ -5,6 +5,7 @@ import client.Main;
 import client.UI.resourcebundles.enums.AvailableLocales;
 import client.UI.resourcebundles.enums.LabWorkAddAndUpdatingFormElements;
 import client.UI.resourcebundles.enums.MainFormElements;
+import client.UI.resourcebundles.enums.RuntimeOutputs;
 import client.backend.Console;
 
 import client.backend.tableHandlers.TableViewHandler;
@@ -196,7 +197,7 @@ public class MainFormController {
             prepareAndInvokeRemoveByIdCommand(value);
         } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
             alert.show();
         } finally {
             button.setDisable(false);
@@ -214,7 +215,7 @@ public class MainFormController {
             prepareAndInvokeRemoveGreater(value);
         } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
             alert.show();
         } finally {
             button.setDisable(false);
@@ -230,6 +231,8 @@ public class MainFormController {
             if (labWork != null) {
                 if (!checkModelUserId(labWork)) return;
                 Console.selectCommand(new String[]{"remove_by_id", String.valueOf(labWork.getId())});
+            }else {
+                Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.MODEL_WAS_NOT_SELECTED_IN_TABLE.toString()).show();
             }
         } finally {
             button.setDisable(false);
@@ -247,7 +250,7 @@ public class MainFormController {
             prepareAndInvokeRemoveLower(value);
         } catch (IOException exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+            alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
             alert.show();
         } finally {
             button.setDisable(false);
@@ -308,8 +311,13 @@ public class MainFormController {
                     data.setOwnerID(Console.client.getId());
                     Console.update(data);
                 } catch (IOException ignored) {
-
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText(RuntimeOutputs.CAN_NOT_INIT_COMPONENT.toString());
+                    alert.show();
                 }
+            }else {
+                Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.MODEL_WAS_NOT_SELECTED_IN_TABLE.toString()).show();
+
             }
         } finally {
             button.setDisable(false);

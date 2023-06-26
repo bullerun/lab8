@@ -4,6 +4,7 @@ import client.Main;
 import client.UI.controllers.FilterFormController;
 import client.UI.resourcebundles.enums.FilterCreatorFormElements;
 //import client.UI.resourcebundles.enums.RuntimeOutputs;
+import client.UI.resourcebundles.enums.RuntimeOutputs;
 import client.backend.tableHandlers.ColumnNames;
 import client.backend.tableHandlers.predicatefactory.AbstractPredicateFactory;
 import client.backend.tableHandlers.predicatefactory.FilterSigns;
@@ -162,7 +163,7 @@ public class FilterCreatorFormController {
             filterFormController.setColumnForFilteringLabel(columnsForFilteringComboBox.getValue());
             return true;
         }
-//        Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.COLUMN_WAS_NOT_SELECTED.toString()).show();
+        Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.COLUMN_WAS_NOT_SELECTED.toString()).show();
         return false;
     }
 
@@ -171,6 +172,7 @@ public class FilterCreatorFormController {
             filterFormController.setFilterSignLabel(signsCombobox.getValue());
             return true;
         }
+        Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.SIGN_WAS_NOT_SELECTED.toString()).show();
         return false;
     }
 

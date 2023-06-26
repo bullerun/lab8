@@ -2,6 +2,7 @@ package client.UI.controllers;
 
 import client.UI.resourcebundles.enums.LabWorkAddAndUpdatingFormElements;
 //import client.UI.resourcebundles.enums.RuntimeOutputs;
+import client.UI.resourcebundles.enums.RuntimeOutputs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -32,9 +33,9 @@ public class AdditionalFormOfDataCollectionController {
 
     @FXML
     protected void onOkButtonPressed(ActionEvent actionEvent){
-//        if (valueTextField.getText().isBlank()){
-//            Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.VALUE_WAS_NOT_ENTERED.toString()).show();
-//        }
+        if (valueTextField.getText().isBlank()){
+            Notifications.create().position(Pos.TOP_CENTER).text(RuntimeOutputs.VALUE_WAS_NOT_ENTERED.toString()).show();
+        }
         currentStage.close();
     }
 
